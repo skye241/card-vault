@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.DS_Store
+.streamlit/secrets.toml
+
+# Reference images and embeddings are downloaded locally.
+data/images/
+data/samples/
+data/api_cache/
+data/catalog.json
+data/embeddings.npz

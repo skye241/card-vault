@@ -1,40 +1,52 @@
-"""Read slab fields from a photo with Florence-2 OCR."""
+"""Read slab fields from a photo with Qwen2-VL-2B-Instruct."""
 
+import json
 import re
 
 from schema import GradedSlabSchema
-from run_florence import run_florence_task
+from run_qwen import run_qwen
 
-_COMPANIES = ("PSA", "BGS", "CGC", "SGC")
+_PROMPT = (
+    "Examine this trading card image. Is it encapsulated in a professional "
+    "grading slab (PSA, Beckett, CGC, or SGC)? "
+    "Return only a JSON object with keys is_graded, company, grade, card_name, "
+    "and cert_number. If the card is raw or ungraded, set is_graded to false "
+    "and leave the other fields as empty strings."
+)
 
 
 def extract_slab_info(image_bytes: bytes) -> GradedSlabSchema:
-    # Florence <OCR> reads the label text. It does not take a natural-language prompt.
-    parsed = run_florence_task(image_bytes, "<MORE_DETAILED_CAPTION>")
-    text = parsed.get("<OCR>", "") if isinstance(parsed, dict) else ""
-    if not isinstance(text, str) or not text.strip():
-        return GradedSlabSchema(
-            is_graded=False,
-            company="",
-            grade="",
-            card_name="",
-            cert_number="",
-        )
-    return _schema_from_ocr(text)
+    # TODO: tighten the prompt once real slab photos are checked against the schema.
+    try:
+        reply = run_qwen(image_bytes, _PROMPT)
+    except (OSError, ValueError) as error:
+        print(f"Error! {error}")
+        return _empty_schema()
+    return _schema_from_reply(reply)
 
 
-def _schema_from_ocr(text: str) -> GradedSlabSchema:
-    # TODO: replace this label scan with a stricter read of the slab header.
-    
-    print(text)
-    upper = text.upper()
-    company = next((name for name in _COMPANIES if name in upper), "")
-    cert_match = re.search(r"\b\d{7,10}\b", text)
-    grade_match = re.search(r"\b(?:GRADE|GEM[-\s]?MT|MINT)\s*(10|[1-9](?:\.5)?)\b", upper)
+def _schema_from_reply(reply: str) -> GradedSlabSchema:
+    match = re.search(r"\{.*\}", reply, re.DOTALL)
+    if not match:
+        return _empty_schema()
+    try:
+        data = json.loads(match.group(0))
+    except json.JSONDecodeError:
+        return _empty_schema()
     return GradedSlabSchema(
-        is_graded=bool(company),
-        company=company,
-        grade=grade_match.group(1) if grade_match else "",
+        is_graded=bool(data.get("is_graded")),
+        company=str(data.get("company") or ""),
+        grade=str(data.get("grade") or ""),
+        card_name=str(data.get("card_name") or ""),
+        cert_number=str(data.get("cert_number") or ""),
+    )
+
+
+def _empty_schema() -> GradedSlabSchema:
+    return GradedSlabSchema(
+        is_graded=False,
+        company="",
+        grade="",
         card_name="",
-        cert_number=cert_match.group(0) if cert_match else "",
+        cert_number="",
     )
