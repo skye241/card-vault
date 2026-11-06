@@ -4,6 +4,7 @@ __pycache__/
 *.pyc
 .DS_Store
 .streamlit/secrets.toml
+.env
 
 # Reference images and embeddings are downloaded locally.
 data/images/

@@ -1,10 +1,10 @@
-"""Read slab fields from a photo with Qwen2-VL-2B-Instruct."""
+"""Read slab fields from a photo with GPT-4o mini."""
 
 import json
 import re
 
 from schema import GradedSlabSchema
-from run_qwen import run_qwen
+from run_gpt import run_gpt
 
 _PROMPT = (
     "Examine this trading card image. Is it encapsulated in a professional "
@@ -18,7 +18,8 @@ _PROMPT = (
 def extract_slab_info(image_bytes: bytes) -> GradedSlabSchema:
     # TODO: tighten the prompt once real slab photos are checked against the schema.
     try:
-        reply = run_qwen(image_bytes, _PROMPT)
+        reply = run_gpt(image_bytes, _PROMPT)
+        print(reply)
     except (OSError, ValueError) as error:
         print(f"Error! {error}")
         return _empty_schema()
