@@ -17,7 +17,7 @@ st.markdown(
         margin-bottom: 0.35rem;
     }
     .price {
-        font-size: 2.75rem;
+        font-size: 40px;
         font-weight: 600;
         letter-spacing: -0.04em;
         line-height: 1.1;
@@ -64,11 +64,13 @@ with result_column:
             except Exception as error:
                 st.warning(str(error))
             else:
-                st.markdown("Covered Value")
-                st.markdown(f'<h4 class="price">${price:,.2f}</h4>', unsafe_allow_html=True)
+                st.caption("Covered Value:")
+                st.html(f'<p class="price">${price:,.2f}</p>')
                 st.caption("Source: eBay median listing prices")
-            company, grade, year, cert = st.columns(4)
+            company, grade = st.columns(2)
             company.metric("Company", slab_info.company or "—")
             grade.metric("Grade", slab_info.grade or "—")
+            year, cert = st.columns(2)
+
             year.metric("Year", slab_info.year or "—")
             cert.metric("Cert", slab_info.cert_number or "—")
