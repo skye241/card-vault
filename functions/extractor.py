@@ -17,9 +17,20 @@ _PROMPT = (
 
 def extract_slab_info(image_bytes: bytes) -> GradedSlabSchema:
     # TODO: tighten the prompt once real slab photos are checked against the schema.
+    #TODO: resume gpt after configuring ebay api
     try:
+#         reply = """```json
+# {
+#   "is_graded": true,
+#   "company": "CGC",
+#   "grade": "7",
+#   "card_name": "Alakazam",
+#   "cert_number": "6054872090"
+# }
+# ```"""
+        
         reply = run_gpt(image_bytes, _PROMPT)
-        print(reply)
+        # print(reply)
     except (OSError, ValueError) as error:
         print(f"Error! {error}")
         return _empty_schema()

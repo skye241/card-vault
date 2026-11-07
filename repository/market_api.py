@@ -1,4 +1,3 @@
-"""Price lookups. PSA certs use the PSA API; every other company uses eBay."""
 
 import os
 from statistics import median
@@ -10,7 +9,6 @@ from data.schema import GradedSlabSchema
 
 load_dotenv()
 
-_PSA_CERT_URL = "https://api.psacard.com/publicapi/cert/GetByCertNumber/{cert}"
 _EBAY_TOKEN_URL = "https://api.ebay.com/identity/v1/oauth2/token"
 _EBAY_SEARCH_URL = "https://api.ebay.com/buy/browse/v1/item_summary/search"
 _EBAY_SCOPE = "https://api.ebay.com/oauth/api_scope"
@@ -22,26 +20,6 @@ def _env(name: str) -> str:
         raise ValueError(f"{name} is not set")
     return value
 
-
-def calling_psa(slab_info: GradedSlabSchema) -> float:
-    """Look up a PSA cert. The public cert method does not return a sale price."""
-    cert = "".join(character for character in slab_info.cert_number if character.isdigit())
-    if not cert:
-        raise ValueError("PSA lookup needs a cert number")
-    response = requests.get(
-        _PSA_CERT_URL.format(cert=cert),
-        headers={"Authorization": f"bearer {_env('PSA_API_TOKEN')}"},
-        timeout=30,
-    )
-    if not response.ok:
-        raise ValueError(f"PSA {response.status_code}: {response.text}")
-    body = response.json()
-    cert_body = body.get("PSACert") or {}
-    for key in ("Price", "MarketValue", "EstimatedValue"):
-        if cert_body.get(key) not in (None, ""):
-            return float(cert_body[key])
-    # TODO: PSA's public cert API confirms the slab and grade, not a market price.
-    raise ValueError("PSA cert API returned no market price")
 
 
 def calling_ebay(slab_info: GradedSlabSchema) -> float:
@@ -60,7 +38,7 @@ def calling_ebay(slab_info: GradedSlabSchema) -> float:
             "Authorization": f"Bearer {token}",
             "X-EBAY-C-MARKETPLACE-ID": "EBAY_US",
         },
-        params={"q": query, "limit": "10"},
+        params={"q": query, "limit": "10", "itemFilter": "(name=SoldItemsOnly, value=true)"},
         timeout=30,
     )
     if not response.ok:
