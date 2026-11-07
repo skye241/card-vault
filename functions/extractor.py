@@ -10,14 +10,14 @@ _PROMPT = (
     "Examine this trading card image. Is it encapsulated in a professional "
     "grading slab (PSA, Beckett, CGC, or SGC)? "
     "Return only a JSON object with keys is_graded, company, grade, card_name, "
-    "and cert_number. If the card is raw or ungraded, set is_graded to false "
+    "year, and cert_number. year is the four-digit year printed on the card or slab. "
+    "If the card is raw or ungraded, set is_graded to false "
     "and leave the other fields as empty strings."
 )
 
 
 def extract_slab_info(image_bytes: bytes) -> GradedSlabSchema:
     # TODO: tighten the prompt once real slab photos are checked against the schema.
-    #TODO: resume gpt after configuring ebay api
     try:
 #         reply = """```json
 # {
@@ -25,6 +25,7 @@ def extract_slab_info(image_bytes: bytes) -> GradedSlabSchema:
 #   "company": "CGC",
 #   "grade": "7",
 #   "card_name": "Alakazam",
+#   "year": "1999",
 #   "cert_number": "6054872090"
 # }
 # ```"""
@@ -50,6 +51,7 @@ def _schema_from_reply(reply: str) -> GradedSlabSchema:
         company=str(data.get("company") or ""),
         grade=str(data.get("grade") or ""),
         card_name=str(data.get("card_name") or ""),
+        year=str(data.get("year") or ""),
         cert_number=str(data.get("cert_number") or ""),
     )
 
@@ -60,5 +62,6 @@ def _empty_schema() -> GradedSlabSchema:
         company="",
         grade="",
         card_name="",
+        year="",
         cert_number="",
     )

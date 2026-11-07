@@ -24,9 +24,10 @@ def _env(name: str) -> str:
 
 def calling_ebay(slab_info: GradedSlabSchema) -> float:
     """Median current asking price from eBay Browse search. These are listings, not sold comps."""
+    ###TODO: Stricter algorithm to determine valuation
     query = " ".join(
         part.strip()
-        for part in (slab_info.card_name, slab_info.company, slab_info.grade)
+        for part in (slab_info.year, slab_info.card_name, slab_info.company, slab_info.grade)
         if part and part.strip()
     )
     if not query:

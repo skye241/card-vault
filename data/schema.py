@@ -8,4 +8,5 @@ class GradedSlabSchema(BaseModel):
     company: str
     grade: str
     card_name: str
+    year: str
     cert_number: str
