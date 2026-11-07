@@ -1,7 +1,7 @@
 import streamlit as st
 
-from extractor import extract_slab_info
-from valuation import get_market_value
+from functions.extractor import extract_slab_info
+from functions.valuation import get_market_value
 
 st.title("Graded Trading Card Valuation")
 

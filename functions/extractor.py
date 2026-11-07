@@ -3,8 +3,8 @@
 import json
 import re
 
-from schema import GradedSlabSchema
-from run_gpt import run_gpt
+from data.schema import GradedSlabSchema
+from functions.run_gpt import run_gpt
 
 _PROMPT = (
     "Examine this trading card image. Is it encapsulated in a professional "
