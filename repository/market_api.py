@@ -3,11 +3,10 @@ import os
 from statistics import median
 
 import requests
-from dotenv import load_dotenv
+import streamlit as st
 
 from data.schema import GradedSlabSchema
 
-load_dotenv()
 
 _EBAY_TOKEN_URL = "https://api.ebay.com/identity/v1/oauth2/token"
 _EBAY_SEARCH_URL = "https://api.ebay.com/buy/browse/v1/item_summary/search"
@@ -15,7 +14,7 @@ _EBAY_SCOPE = "https://api.ebay.com/oauth/api_scope"
 
 
 def _env(name: str) -> str:
-    value = os.environ.get(name, "").strip()
+    value = st.secrets[name].strip()
     if not value:
         raise ValueError(f"{name} is not set")
     return value

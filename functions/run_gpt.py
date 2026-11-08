@@ -3,7 +3,7 @@
 import base64
 import os
 from pathlib import Path
-from dotenv import load_dotenv
+import streamlit as st
 from openai import OpenAI
 
 import requests
@@ -11,9 +11,8 @@ import requests
 MODEL_ID = "openai/gpt-4o-mini"
 _URL = "https://openrouter.ai/api/v1/chat/completions"
 
-load_dotenv()
 def _api_key() -> str:
-    api_key = os.environ.get("OPENROUTER_API_KEY")
+    api_key = st.secrets["OPENROUTER_API_KEY"]
 
     if api_key is None:
         raise RuntimeError("No API key")
