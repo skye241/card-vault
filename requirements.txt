@@ -5,4 +5,3 @@ transformers>=4.46
 pillow>=10
 numpy>=1.26
 requests>=2.32
-openai>=3.46.0
