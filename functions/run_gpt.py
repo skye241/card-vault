@@ -9,14 +9,17 @@ from openai import OpenAI
 import requests
 
 MODEL_ID = "openai/gpt-4o-mini"
-_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 def _api_key() -> str:
-    api_key = st.secrets["OPENROUTER_API_KEY"]
-
-    if api_key is None:
+    api_key = os.environ.get("OPENROUTER_API_KEY")
+    if not api_key:
+        from dotenv import load_dotenv
+        load_dotenv()
+        api_key = os.environ.get("OPENROUTER_API_KEY")
+    if not api_key:
+        api_key = st.secrets["OPENROUTER_API_KEY"]
+    if not api_key:
         raise RuntimeError("No API key")
-
     return api_key
 
 
@@ -39,6 +42,7 @@ def run_gpt(image_bytes: bytes, prompt: str) -> str:
 )
     response = client.chat.completions.create(
         model=MODEL_ID,
+        max_tokens=400,
         messages= [
             {
                 "role": "user",
