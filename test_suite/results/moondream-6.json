@@ -1,0 +1,261 @@
+{
+  "model": "moondream-6",
+  "images": 6,
+  "record_accuracy": 0.0,
+  "field_accuracy": {
+    "is_graded": 0.333,
+    "company": 0.167,
+    "grade": 0.5,
+    "cert_number": 0.167,
+    "card_name": 0.0,
+    "year": 0.167,
+    "collection_name": 0.167,
+    "variant": 0.167
+  },
+  "category_accuracy": {
+    "Standard Slabs": {
+      "correct": 0,
+      "total": 4,
+      "accuracy": 0.0
+    },
+    "Negative Control": {
+      "correct": 0,
+      "total": 1,
+      "accuracy": 0.0
+    },
+    "Visual Edge Cases": {
+      "correct": 0,
+      "total": 1,
+      "accuracy": 0.0
+    }
+  },
+  "seconds": {
+    "total": 53.536,
+    "mean": 8.923,
+    "median": 3.848
+  },
+  "results": [
+    {
+      "id": "IMG_001",
+      "category": "Standard Slabs",
+      "seconds": 6.111,
+      "correct": false,
+      "fields": {
+        "is_graded": false,
+        "company": false,
+        "grade": false,
+        "cert_number": false,
+        "card_name": false,
+        "year": false,
+        "collection_name": false,
+        "variant": false
+      },
+      "expected": {
+        "is_graded": true,
+        "company": "PSA",
+        "grade": "10",
+        "cert_number": "28669739",
+        "card_name": "Charizard",
+        "year": "2003",
+        "collection_name": "Pokemon Skyridge",
+        "variant": "Holo"
+      },
+      "predicted": {
+        "is_graded": "",
+        "company": "",
+        "grade": "",
+        "cert_number": "",
+        "card_name": "",
+        "year": "",
+        "collection_name": "",
+        "variant": ""
+      },
+      "error": ""
+    },
+    {
+      "id": "IMG_002",
+      "category": "Standard Slabs",
+      "seconds": 3.8,
+      "correct": false,
+      "fields": {
+        "is_graded": false,
+        "company": false,
+        "grade": false,
+        "cert_number": false,
+        "card_name": false,
+        "year": false,
+        "collection_name": false,
+        "variant": false
+      },
+      "expected": {
+        "is_graded": true,
+        "company": "PSA",
+        "grade": "6",
+        "cert_number": "78417568",
+        "card_name": "Mudkip",
+        "year": "2004",
+        "collection_name": "Team Rocket Returns",
+        "variant": "Gold Star - Holo"
+      },
+      "predicted": {
+        "is_graded": "",
+        "company": "",
+        "grade": "",
+        "cert_number": "",
+        "card_name": "",
+        "year": "",
+        "collection_name": "",
+        "variant": ""
+      },
+      "error": ""
+    },
+    {
+      "id": "IMG_003",
+      "category": "Standard Slabs",
+      "seconds": 32.098,
+      "correct": false,
+      "fields": {
+        "is_graded": false,
+        "company": false,
+        "grade": false,
+        "cert_number": false,
+        "card_name": false,
+        "year": false,
+        "collection_name": false,
+        "variant": true
+      },
+      "expected": {
+        "is_graded": true,
+        "company": "PSA",
+        "grade": "10",
+        "cert_number": "82785934",
+        "card_name": "Ja'Marr Chase",
+        "year": "2021",
+        "collection_name": "Chronicles",
+        "variant": ""
+      },
+      "predicted": {
+        "is_graded": "",
+        "company": "",
+        "grade": "",
+        "cert_number": "",
+        "card_name": "",
+        "year": "",
+        "collection_name": "",
+        "variant": ""
+      },
+      "error": ""
+    },
+    {
+      "id": "IMG_004",
+      "category": "Standard Slabs",
+      "seconds": 3.844,
+      "correct": false,
+      "fields": {
+        "is_graded": true,
+        "company": false,
+        "grade": true,
+        "cert_number": false,
+        "card_name": false,
+        "year": true,
+        "collection_name": false,
+        "variant": false
+      },
+      "expected": {
+        "is_graded": true,
+        "company": "TAG",
+        "grade": "10",
+        "cert_number": "N2727015",
+        "card_name": "Charizard",
+        "year": "2000",
+        "collection_name": "Base Set 2",
+        "variant": "Holo"
+      },
+      "predicted": {
+        "is_graded": true,
+        "company": "Chariot",
+        "grade": "10",
+        "cert_number": "10",
+        "card_name": "Chariot",
+        "year": "2000",
+        "collection_name": "Chariot",
+        "variant": ""
+      },
+      "error": ""
+    },
+    {
+      "id": "IMG_005",
+      "category": "Negative Control",
+      "seconds": 3.831,
+      "correct": false,
+      "fields": {
+        "is_graded": true,
+        "company": true,
+        "grade": true,
+        "cert_number": true,
+        "card_name": false,
+        "year": false,
+        "collection_name": true,
+        "variant": false
+      },
+      "expected": {
+        "is_graded": false,
+        "company": "",
+        "grade": "",
+        "cert_number": "",
+        "card_name": "Mewtwo",
+        "year": "2006",
+        "collection_name": "",
+        "variant": "Gold Star"
+      },
+      "predicted": {
+        "is_graded": "",
+        "company": "",
+        "grade": "",
+        "cert_number": "",
+        "card_name": "",
+        "year": "",
+        "collection_name": "",
+        "variant": ""
+      },
+      "error": ""
+    },
+    {
+      "id": "IMG_006",
+      "category": "Visual Edge Cases",
+      "seconds": 3.852,
+      "correct": false,
+      "fields": {
+        "is_graded": false,
+        "company": false,
+        "grade": true,
+        "cert_number": false,
+        "card_name": false,
+        "year": false,
+        "collection_name": false,
+        "variant": false
+      },
+      "expected": {
+        "is_graded": false,
+        "company": "Beckett",
+        "grade": "10",
+        "cert_number": "",
+        "card_name": "Lugia",
+        "year": "2026",
+        "collection_name": "30th Celebration",
+        "variant": "Holo"
+      },
+      "predicted": {
+        "is_graded": true,
+        "company": "BEC",
+        "grade": "10",
+        "cert_number": "10",
+        "card_name": "Luggia",
+        "year": "20",
+        "collection_name": "20th",
+        "variant": "Full Art"
+      },
+      "error": ""
+    }
+  ]
+}

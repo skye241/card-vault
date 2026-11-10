@@ -5,12 +5,13 @@ import re
 
 from data.schema import GradedSlabSchema
 from functions.run_gpt import run_gpt
+from functions.run_moondream import run_moondream
 
 _PROMPT = (
     "Examine this trading card image. Is it encapsulated in a professional "
     "grading slab (PSA, Beckett, CGC, or SGC)? "
     "Return only a JSON object with keys is_graded, company, grade, card_name, "
-    "year, and cert_number. year is the four-digit year printed on the card or slab. "
+    "year, and cert_number. year is the four-digit year printed on the card or slab. Cert_number is a 7-to-10-digit string of number."
     "If the card is raw or ungraded, set is_graded to false "
     "and leave the other fields as empty strings."
 )
@@ -18,6 +19,7 @@ _PROMPT = (
 
 def extract_slab_info(image_bytes: bytes) -> GradedSlabSchema:
     # TODO: tighten the prompt once real slab photos are checked against the schema.
+    #TODO: feature: bulk extract
     try:
 #         reply = """```json
 # {
