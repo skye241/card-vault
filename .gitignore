@@ -12,3 +12,7 @@ data/samples/
 data/api_cache/
 data/catalog.json
 data/embeddings.npz
+test_suite/negative_control
+test_suite/standard_slabs
+test_suite/text_complexity
+test_suite/visual_edge_cases

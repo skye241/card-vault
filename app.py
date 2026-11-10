@@ -2,6 +2,7 @@ import streamlit as st
 
 from functions.extractor import extract_slab_info
 from functions.valuation import get_market_value
+from constant import grading_company
 
 st.set_page_config(page_title="Graded card valuation", layout="wide")
 st.markdown(
@@ -56,6 +57,10 @@ with result_column:
             slab_info = extract_slab_info(uploaded.getvalue())
         if not slab_info.is_graded:
             st.error("Ineligible for Insurance (Ungraded Card)")
+        elif slab_info.is_graded and slab_info.card_name == "":
+            st.error("Ineligible for Insurance (Unable to verify slab - card name is missing)")
+        elif slab_info.is_graded and slab_info.company not in grading_company.GradingCompany:
+            st.error("Ineligible for Insurance (Unverified grading company)")
         else:
             st.success("Congratulations, your graded card is verified. Check out your card valuation below.")
             st.subheader(slab_info.card_name or "Graded card")

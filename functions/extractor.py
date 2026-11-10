@@ -32,7 +32,7 @@ def extract_slab_info(image_bytes: bytes) -> GradedSlabSchema:
 # }
 # ```"""
         
-        reply = run_moondream(image_bytes, _PROMPT)
+        reply = run_gpt(image_bytes, _PROMPT)
         # print(reply)
     except (OSError, ValueError) as error:
         print(f"Error! {error}")

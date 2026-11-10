@@ -1,0 +1,727 @@
+{
+  "model": "gpt-4o",
+  "results": [
+    {
+      "id": "IMG_001",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.996,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "collection_name",
+          "expected": "Pokemon Skyridge",
+          "predicted": "Skyridge",
+          "confidence": 0.783,
+          "mean_confidence": 0.957
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_002",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.998,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "collection_name",
+          "expected": "Team Rocket Returns",
+          "predicted": "EX Team Rocket Returns",
+          "confidence": 0.993,
+          "mean_confidence": 0.999
+        },
+        {
+          "field": "variant",
+          "expected": "Gold Star - Holo",
+          "predicted": "Gold Star",
+          "confidence": 0.925,
+          "mean_confidence": 0.981
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_004",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.999,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "variant",
+          "expected": "Holo",
+          "predicted": "Holographic",
+          "confidence": 0.971,
+          "mean_confidence": 0.994
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_005",
+      "category": "Negative Control",
+      "answer_confidence": 0.978,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "collection_name",
+          "expected": "",
+          "predicted": "EX Holon Phantoms",
+          "confidence": 0.777,
+          "mean_confidence": 0.944
+        },
+        {
+          "field": "variant",
+          "expected": "Gold Star",
+          "predicted": "Holo",
+          "confidence": 0.021,
+          "mean_confidence": 0.755
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_006",
+      "category": "Visual Edge Cases",
+      "answer_confidence": 0.989,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "is_graded",
+          "expected": false,
+          "predicted": true,
+          "confidence": 1.0,
+          "mean_confidence": 1.0
+        },
+        {
+          "field": "collection_name",
+          "expected": "30th Celebration",
+          "predicted": "Classic Collection",
+          "confidence": 0.882,
+          "mean_confidence": 0.971
+        },
+        {
+          "field": "variant",
+          "expected": "Holo",
+          "predicted": "Confetti Holo Stamp",
+          "confidence": 0.593,
+          "mean_confidence": 0.926
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_007",
+      "category": "Negative Control",
+      "answer_confidence": 0.986,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "year",
+          "expected": "2026",
+          "predicted": "",
+          "confidence": 0.999,
+          "mean_confidence": 0.999
+        },
+        {
+          "field": "collection_name",
+          "expected": "",
+          "predicted": "Roaring Skies",
+          "confidence": 0.598,
+          "mean_confidence": 0.907
+        },
+        {
+          "field": "variant",
+          "expected": "",
+          "predicted": "Full Art",
+          "confidence": 0.737,
+          "mean_confidence": 0.924
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_010",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.993,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "collection_name",
+          "expected": "XY Black Star Promo",
+          "predicted": "XY Black Star",
+          "confidence": 0.881,
+          "mean_confidence": 0.975
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_011",
+      "category": "Text Complexity",
+      "answer_confidence": 0.969,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "cert_number",
+          "expected": "W3570771",
+          "predicted": "847031",
+          "confidence": 0.0,
+          "mean_confidence": 0.522
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_012",
+      "category": "Visual Edge Cases",
+      "answer_confidence": 1.0,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "card_name",
+          "expected": "Deoxys",
+          "predicted": "Deoxys - Normal Forme",
+          "confidence": 0.991,
+          "mean_confidence": 0.999
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_014",
+      "category": "Visual Edge Cases",
+      "answer_confidence": 0.998,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "collection_name",
+          "expected": "Rocket",
+          "predicted": "Pokemon Rocket",
+          "confidence": 0.903,
+          "mean_confidence": 0.974
+        },
+        {
+          "field": "variant",
+          "expected": "1st Edition Holo",
+          "predicted": "Holo",
+          "confidence": 1.0,
+          "mean_confidence": 1.0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_016",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.988,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "company",
+          "expected": "WSG",
+          "predicted": "WSA",
+          "confidence": 0.458,
+          "mean_confidence": 0.835
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_019",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.998,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "collection_name",
+          "expected": "Double Crisis",
+          "predicted": "XY Double Crisis",
+          "confidence": 0.995,
+          "mean_confidence": 0.999
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_020",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.965,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "cert_number",
+          "expected": "F7559252",
+          "predicted": "F766262",
+          "confidence": 0.117,
+          "mean_confidence": 0.576
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_021",
+      "category": "Negative Control",
+      "answer_confidence": 0.995,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "collection_name",
+          "expected": "",
+          "predicted": "Aquapolis",
+          "confidence": 0.783,
+          "mean_confidence": 0.938
+        },
+        {
+          "field": "variant",
+          "expected": "",
+          "predicted": "Holo",
+          "confidence": 1.0,
+          "mean_confidence": 1.0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_022",
+      "category": "Negative Control",
+      "answer_confidence": 0.971,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "year",
+          "expected": "",
+          "predicted": "1999",
+          "confidence": 0.094,
+          "mean_confidence": 0.745
+        },
+        {
+          "field": "collection_name",
+          "expected": "",
+          "predicted": "Wizards Black Star Promos",
+          "confidence": 0.351,
+          "mean_confidence": 0.884
+        },
+        {
+          "field": "variant",
+          "expected": "",
+          "predicted": "Holo",
+          "confidence": 1.0,
+          "mean_confidence": 1.0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_023",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.984,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "variant",
+          "expected": "Full Art",
+          "predicted": "",
+          "confidence": 0.036,
+          "mean_confidence": 0.036
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_024",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.989,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "variant",
+          "expected": "Ultra Rare",
+          "predicted": "",
+          "confidence": 0.359,
+          "mean_confidence": 0.359
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_025",
+      "category": "Negative Control",
+      "answer_confidence": 0.972,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "year",
+          "expected": "2026",
+          "predicted": "2015",
+          "confidence": 0.539,
+          "mean_confidence": 0.884
+        },
+        {
+          "field": "collection_name",
+          "expected": "",
+          "predicted": "Pok\u00e9mon",
+          "confidence": 0.043,
+          "mean_confidence": 0.738
+        },
+        {
+          "field": "variant",
+          "expected": "",
+          "predicted": "Full Art",
+          "confidence": 0.803,
+          "mean_confidence": 0.95
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_026",
+      "category": "Visual Edge Cases",
+      "answer_confidence": 0.995,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "card_name",
+          "expected": "Deoxys",
+          "predicted": "Deoxys - Normal Forme",
+          "confidence": 0.878,
+          "mean_confidence": 0.986
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_027",
+      "category": "Visual Edge Cases",
+      "answer_confidence": 0.993,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "collection_name",
+          "expected": "Ascended Heroes",
+          "predicted": "Mega Evolution Ascended Heroes",
+          "confidence": 0.992,
+          "mean_confidence": 0.998
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_028",
+      "category": "Text Complexity",
+      "answer_confidence": 0.998,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "company",
+          "expected": "ACE",
+          "predicted": "",
+          "confidence": 0.999,
+          "mean_confidence": 0.999
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_029",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.973,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "collection_name",
+          "expected": "30C",
+          "predicted": "Pokemon",
+          "confidence": 0.217,
+          "mean_confidence": 0.614
+        },
+        {
+          "field": "variant",
+          "expected": "Special Illustration Rare",
+          "predicted": "SIR",
+          "confidence": 0.239,
+          "mean_confidence": 0.81
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_034",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.991,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "variant",
+          "expected": "Patch",
+          "predicted": "",
+          "confidence": 0.37,
+          "mean_confidence": 0.37
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_035",
+      "category": "Visual Edge Cases",
+      "answer_confidence": 0.983,
+      "aligned": true,
+      "wrong_fields": [],
+      "error": ""
+    },
+    {
+      "id": "IMG_036",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.982,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "card_name",
+          "expected": "Shohei Ohtani / Yogi Berra",
+          "predicted": "Shohei Ohtani/Yogi Berra",
+          "confidence": 0.938,
+          "mean_confidence": 0.993
+        },
+        {
+          "field": "year",
+          "expected": "2025",
+          "predicted": "2023",
+          "confidence": 0.004,
+          "mean_confidence": 0.751
+        },
+        {
+          "field": "collection_name",
+          "expected": "Welcome to the Club",
+          "predicted": "Topps Welcome to the Club",
+          "confidence": 0.931,
+          "mean_confidence": 0.988
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_038",
+      "category": "Visual Edge Cases",
+      "answer_confidence": 0.987,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "collection_name",
+          "expected": "1989 Topps Autograph",
+          "predicted": "Topps",
+          "confidence": 0.274,
+          "mean_confidence": 0.815
+        },
+        {
+          "field": "variant",
+          "expected": "Autograph Red",
+          "predicted": "Autograph-Red",
+          "confidence": 0.912,
+          "mean_confidence": 0.979
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_039",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.997,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "collection_name",
+          "expected": "Clearly Authentic",
+          "predicted": "Topps Clearly Auth.",
+          "confidence": 0.851,
+          "mean_confidence": 0.964
+        },
+        {
+          "field": "variant",
+          "expected": "Autograph Blue",
+          "predicted": "Autographs-Blue",
+          "confidence": 0.99,
+          "mean_confidence": 0.998
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_040",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.995,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "collection_name",
+          "expected": "Team Heroes",
+          "predicted": "Donruss Team Heroes",
+          "confidence": 0.96,
+          "mean_confidence": 0.993
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_041",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.989,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "collection_name",
+          "expected": "1988 Topps All-Star",
+          "predicted": "Topps",
+          "confidence": 0.55,
+          "mean_confidence": 0.833
+        },
+        {
+          "field": "variant",
+          "expected": "Autograph Red",
+          "predicted": "Auto-Red",
+          "confidence": 0.929,
+          "mean_confidence": 0.981
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_043",
+      "category": "Visual Edge Cases",
+      "answer_confidence": 0.999,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "collection_name",
+          "expected": "Cosmic Chrome",
+          "predicted": "Topps Cosmic Chrome",
+          "confidence": 1.0,
+          "mean_confidence": 1.0
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_045",
+      "category": "Text Complexity",
+      "answer_confidence": 0.997,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "variant",
+          "expected": "",
+          "predicted": "SR",
+          "confidence": 0.846,
+          "mean_confidence": 0.945
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_046",
+      "category": "Text Complexity",
+      "answer_confidence": 0.987,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "cert_number",
+          "expected": "6086529137",
+          "predicted": "608652197",
+          "confidence": 0.304,
+          "mean_confidence": 0.859
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_048",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.985,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "cert_number",
+          "expected": "100000TH",
+          "predicted": "",
+          "confidence": 1.0,
+          "mean_confidence": 1.0
+        },
+        {
+          "field": "card_name",
+          "expected": "Pikachu Illustrator",
+          "predicted": "POK\u00c9MON ILLUSTRATOR",
+          "confidence": 0.217,
+          "mean_confidence": 0.902
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_049",
+      "category": "Text Complexity",
+      "answer_confidence": 0.993,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "collection_name",
+          "expected": "151",
+          "predicted": "Scarlet & Violet",
+          "confidence": 0.983,
+          "mean_confidence": 0.997
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_050",
+      "category": "Negative Control",
+      "answer_confidence": 0.978,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "year",
+          "expected": "2026",
+          "predicted": "2015",
+          "confidence": 0.906,
+          "mean_confidence": 0.968
+        },
+        {
+          "field": "collection_name",
+          "expected": "",
+          "predicted": "Roaring Skies",
+          "confidence": 0.297,
+          "mean_confidence": 0.88
+        },
+        {
+          "field": "variant",
+          "expected": "",
+          "predicted": "Holo",
+          "confidence": 0.39,
+          "mean_confidence": 0.847
+        }
+      ],
+      "error": ""
+    },
+    {
+      "id": "IMG_051",
+      "category": "Standard Slabs",
+      "answer_confidence": 0.997,
+      "aligned": true,
+      "wrong_fields": [
+        {
+          "field": "company",
+          "expected": "ACE",
+          "predicted": "",
+          "confidence": 0.824,
+          "mean_confidence": 0.824
+        },
+        {
+          "field": "card_name",
+          "expected": "Charizard",
+          "predicted": "Charizard V",
+          "confidence": 0.999,
+          "mean_confidence": 1.0
+        }
+      ],
+      "error": ""
+    }
+  ]
+}
