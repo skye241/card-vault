@@ -1,11 +1,10 @@
-"""Read slab fields from a photo with GPT-4o mini."""
+"""Turn a slab photo into a :class:`~card_vault.domain.models.GradedSlab`."""
 
 import json
 import re
 
-from data.schema import GradedSlabSchema
-from functions.run_gpt import run_gpt
-from functions.run_moondream import run_moondream
+from card_vault.domain.models import GradedSlab
+from card_vault.infrastructure.openrouter import run_gpt
 
 _PROMPT = (
     "Examine this trading card image. Is it encapsulated in a professional "
@@ -19,27 +18,54 @@ _PROMPT = (
 )
 
 
-def extract_slab_info(image_bytes: bytes) -> GradedSlabSchema:
-    # TODO: tighten the prompt once real slab photos are checked against the schema.
-    #TODO: feature: bulk extract
+def read_slab(image_bytes: bytes) -> GradedSlab:
+    """Read one photo. A failed read returns an empty, ungraded slab."""
     try:
-#         reply = """```json
-# {
-#   "is_graded": true,
-#   "company": "CGC",
-#   "grade": "7",
-#   "card_name": "Alakazam",
-#   "year": "1999",
-#   "cert_number": "6054872090"
-# }
-# ```"""
-        
         reply = run_gpt(image_bytes, _PROMPT)
-        # print(reply)
     except (OSError, ValueError) as error:
         print(f"Error! {error}")
-        return _empty_schema()
-    return _schema_from_reply(reply)
+        return empty_slab()
+    return slab_from_reply(reply)
+
+
+def slab_from_reply(reply: str) -> GradedSlab:
+    """Parse the model's JSON. Beckett is stored as BGS."""
+    match = re.search(r"\{.*\}", reply, re.DOTALL)
+    if not match:
+        return empty_slab()
+    try:
+        data = json.loads(match.group(0))
+    except json.JSONDecodeError:
+        return empty_slab()
+    company = str(data.get("company") or "")
+    if company == "Beckett":
+        company = "BGS"
+    return GradedSlab(
+        is_graded=bool(data.get("is_graded")),
+        is_pokemon=_as_bool(data.get("is_pokemon")),
+        company=company,
+        grade=str(data.get("grade") or ""),
+        card_name=str(data.get("card_name") or ""),
+        card_number=str(data.get("card_number") or ""),
+        year=str(data.get("year") or ""),
+        collection_name=str(data.get("collection_name") or ""),
+        cert_number=str(data.get("cert_number") or ""),
+    )
+
+
+def empty_slab() -> GradedSlab:
+    """A slab the reader could not fill in."""
+    return GradedSlab(
+        is_graded=False,
+        is_pokemon=None,
+        company="",
+        grade="",
+        card_name="",
+        card_number="",
+        year="",
+        collection_name="",
+        cert_number="",
+    )
 
 
 def _as_bool(value) -> bool | None:
@@ -52,41 +78,3 @@ def _as_bool(value) -> bool | None:
         if text in {"false", "no"}:
             return False
     return None
-
-
-def _schema_from_reply(reply: str) -> GradedSlabSchema:
-    match = re.search(r"\{.*\}", reply, re.DOTALL)
-    if not match:
-        return _empty_schema()
-    try:
-        data = json.loads(match.group(0))
-    except json.JSONDecodeError:
-        return _empty_schema()
-    company = data.get("company") or ""
-    if company == "Beckett":
-        company="BGS"
-    return GradedSlabSchema(
-        is_graded=bool(data.get("is_graded")),
-        is_pokemon=_as_bool(data.get("is_pokemon")),
-        company=str(company),
-        grade=str(data.get("grade") or ""),
-        card_name=str(data.get("card_name") or ""),
-        card_number=str(data.get("card_number") or ""),
-        year=str(data.get("year") or ""),
-        collection_name=str(data.get("collection_name") or ""),
-        cert_number=str(data.get("cert_number") or ""),
-    )
-
-
-def _empty_schema() -> GradedSlabSchema:
-    return GradedSlabSchema(
-        is_graded=False,
-        is_pokemon=None,
-        company="",
-        grade="",
-        card_name="",
-        card_number="",
-        year="",
-        collection_name="",
-        cert_number="",
-    )

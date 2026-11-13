@@ -1,47 +1,39 @@
 # Graded card valuation
 
-Upload a photo of a graded trading card and get an insurance check: whether the card is in a professional slab, what is printed on that slab, and a current market value.
+Upload a photo of a graded Pokémon slab and get an insurance check: whether the card can be quoted, the fields printed on the slab, a market value, and a one-year price chart.
 
-This is a quote for a policy check. It does not sell insurance.
+This is a quote for a policy check. It does not sell insurance. A raw card is not eligible. A card that is not Pokémon is unsupported for now.
 
-A raw card is not eligible. The screen then says **Ineligible for Insurance (Ungraded Card)**.
+## Layout
 
-## What a graded photo returns
+The code follows a small clean architecture. Each layer only calls inward.
 
-The model reads the slab and fills in:
+| Layer | Path | Responsibility |
+| --- | --- | --- |
+| Domain | `card_vault/domain` | Slab, quote, and price-history models. Set-name matching. Graded price selection. No HTTP and no Streamlit. |
+| Application | `card_vault/application` | Read a photo, decide if it can be quoted, and build the quote. |
+| Infrastructure | `card_vault/infrastructure` | OpenRouter, the local set catalog, TCGcsv, the Pokémon TCG API, and eBay. |
+| Presentation | `card_vault/presentation` | The Streamlit screen. `app.py` is the entry point. |
 
-| Field | What it is |
-| --- | --- |
-| Company | PSA, Beckett, CGC, or SGC |
-| Grade | The printed grade |
-| Card | The card name |
-| Year | The four-digit year on the card or slab |
-| Cert | The certification number |
-
-The covered value is the median of current eBay asking prices for that year, card, company, and grade. These are live listings, not completed sales. Prices are US dollars.
-
-## How the check works
-
-1. You upload a straight-on photo of the slab (JPEG, PNG, or WebP).
-2. GPT-4o mini, called through OpenRouter, reads the image and returns the slab fields as JSON.
-3. If the card is ungraded, the check stops.
-4. If it is graded, the app searches eBay for `year card company grade` and takes the median listing price.
+A quote tries eBay graded prices, then Cardmarket, then TCGPlayer. The slab's grading company is used first. If that company has no grade within 2 points, the fallback order is TAG, ACE, BGS, SGC, CGC, PSA. If nothing graded matches, the quote uses Cardmarket's 7-day average. If the Pokémon card cannot be resolved, the quote is the median of current eBay listings. When the Pokémon card is found, the screen charts the past year of Cardmarket and TCGPlayer prices.
 
 ## Run
 
 ```bash
 uv venv --python 3.12 .venv
 uv pip install -r requirements.txt
-.venv/bin/streamlit run graded_app.py
+.venv/bin/streamlit run app.py
 ```
 
-Put these in `.env`:
+Put these in `.env` or `.streamlit/secrets.toml`:
 
 | Name | Used for |
 | --- | --- |
 | `OPENROUTER_API_KEY` | Reading the slab photo |
-| `EBAY_CLIENT_ID` | eBay Browse API |
+| `POKEMON_TCG_API_KEY` | Pokémon card prices and price history |
+| `EBAY_CLIENT_ID` | eBay Browse API, used when the Pokémon lookup fails |
 | `EBAY_CLIENT_SECRET` | eBay Browse API |
-| `POKEMON_TCG_API_KEY` | Optional. Raises the Pokémon TCG API rate limit |
 
-The eBay credentials are an application keyset. The search uses the production Browse API.
+```bash
+.venv/bin/python -m unittest tests.test_quote_rules
+```

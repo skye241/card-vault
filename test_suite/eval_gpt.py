@@ -6,7 +6,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from functions.run_gpt import run_gpt
+from card_vault.infrastructure.openrouter import run_gpt
 from test_suite.evaluate import evaluate_pipeline
 
 PROMPT = (

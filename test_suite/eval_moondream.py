@@ -5,7 +5,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from functions.run_moondream import run_moondream
+from card_vault.infrastructure.moondream import run_moondream
 from test_suite.evaluate import evaluate_pipeline
 
 PROMPT = (
