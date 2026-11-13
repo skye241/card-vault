@@ -67,10 +67,6 @@ def _tcgcsv_get(url: str) -> dict:
     return response.json()
 
 
-def _words(value: str) -> list[str]:
-    return [part for part in "".join(ch.lower() if ch.isalnum() else " " for ch in str(value or "")).split() if part]
-
-
 def _pokemon_get(url: str, params: dict | None = None) -> dict:
     headers = {}
     api_key = _optional_env("POKEMON_TCG_API_KEY")

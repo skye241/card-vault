@@ -3,7 +3,7 @@
 import re
 
 from data.schema import GradedSlabSchema
-from repository.market_api import calling_pokemon_tcg
+from repository.market_api import calling_pokemon_tcg, calling_ebay
 
 _SOURCES = ("ebay", "cardmarket", "tcg_player")
 _COMPANY_RANK = ("tag", "ace", "bgs", "sgc", "cgc", "psa")
@@ -11,25 +11,28 @@ _GRADE_LIMIT = 2
 
 
 def get_market_value(slab_info: GradedSlabSchema) -> tuple[float, str]:
-    if slab_info.is_pokemon is False:
-        raise LookupError("This card is unsupported for now")
-    prices = calling_pokemon_tcg(slab_info)
-    grade = _grade_number(slab_info.grade)
-    companies = _company_order(slab_info.company)
-    for source in _SOURCES:
-        block = prices.get(source) or {}
-        chosen = _graded_price(block.get("graded") or {}, companies, grade)
-        if chosen is None:
-            continue
-        value, company, used_grade = chosen
-        currency = block.get("currency") or "USD"
-        return value, f"{_source_name(source)} {company.upper()} {used_grade:g} ({currency})"
-    average = (prices.get("cardmarket") or {}).get("7d_average")
-    if average not in (None, ""):
-        currency = (prices.get("cardmarket") or {}).get("currency") or "EUR"
-        return float(average), f"Cardmarket 7-day average ({currency})"
-    raise LookupError("Pokémon TCG returned no usable price")
+    try:
+        if slab_info.is_pokemon is False:
+            raise LookupError("This card is unsupported for now")
+        prices = calling_pokemon_tcg(slab_info)
+        grade = _grade_number(slab_info.grade)
+        companies = _company_order(slab_info.company)
+        for source in _SOURCES:
+            block = prices.get(source) or {}
+            chosen = _graded_price(block.get("graded") or {}, companies, grade)
+            if chosen is None:
+                continue
+            value, company, used_grade = chosen
+            currency = block.get("currency") or "USD"
+            return value, f"{_source_name(source)} {company.upper()} {used_grade:g} ({currency})"
+        average = (prices.get("cardmarket") or {}).get("7d_average")
+        if average not in (None, ""):
+            currency = (prices.get("cardmarket") or {}).get("currency") or "EUR"
+            return float(average), f"Cardmarket 7-day average ({currency})"
+    except LookupError:
+        return calling_ebay(slab_info), "Median eBay asking price"
 
+    
 
 def _graded_price(graded: dict, companies: list[str], grade: float | None) -> tuple[float, str, float] | None:
     tables = {str(name).casefold(): block for name, block in graded.items() if isinstance(block, dict)}
