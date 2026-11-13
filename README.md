@@ -42,5 +42,6 @@ Put these in `.env`:
 | `OPENROUTER_API_KEY` | Reading the slab photo |
 | `EBAY_CLIENT_ID` | eBay Browse API |
 | `EBAY_CLIENT_SECRET` | eBay Browse API |
+| `POKEMON_TCG_API_KEY` | Optional. Raises the Pokémon TCG API rate limit |
 
 The eBay credentials are an application keyset. The search uses the production Browse API.

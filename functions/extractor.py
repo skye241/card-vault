@@ -9,9 +9,11 @@ from functions.run_moondream import run_moondream
 
 _PROMPT = (
     "Examine this trading card image. Is it encapsulated in a professional "
-    "grading slab (PSA, Beckett, CGC, or SGC)? "
-    "Return only a JSON object with keys is_graded, company, grade, card_name, "
-    "year, and cert_number. year is the four-digit year printed on the card or slab. Cert_number is a 7-to-10-digit string of number."
+    "grading slab (PSA, Beckett, CGC, SGC, or ACE)? "
+    "Return only a JSON object with keys is_graded, is_pokemon, company, grade, card_name, card_number "
+    "year, collection_name, and cert_number. is_pokemon is true only for a Pokémon Trading Card Game card, "
+    "and false for sports and every other game. year is the four-digit year printed on the card or slab. "
+    "collection_name is the set name, similar to TCG Player Group name. Cert_number is a 6-to-10-digit string of number."
     "If the card is raw or ungraded, set is_graded to false "
     "and leave the other fields as empty strings."
 )
@@ -40,6 +42,18 @@ def extract_slab_info(image_bytes: bytes) -> GradedSlabSchema:
     return _schema_from_reply(reply)
 
 
+def _as_bool(value) -> bool | None:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        text = value.casefold().strip()
+        if text in {"true", "yes"}:
+            return True
+        if text in {"false", "no"}:
+            return False
+    return None
+
+
 def _schema_from_reply(reply: str) -> GradedSlabSchema:
     match = re.search(r"\{.*\}", reply, re.DOTALL)
     if not match:
@@ -48,12 +62,18 @@ def _schema_from_reply(reply: str) -> GradedSlabSchema:
         data = json.loads(match.group(0))
     except json.JSONDecodeError:
         return _empty_schema()
+    company = data.get("company") or ""
+    if company == "Beckett":
+        company="BGS"
     return GradedSlabSchema(
         is_graded=bool(data.get("is_graded")),
-        company=str(data.get("company") or ""),
+        is_pokemon=_as_bool(data.get("is_pokemon")),
+        company=str(company),
         grade=str(data.get("grade") or ""),
         card_name=str(data.get("card_name") or ""),
+        card_number=str(data.get("card_number") or ""),
         year=str(data.get("year") or ""),
+        collection_name=str(data.get("collection_name") or ""),
         cert_number=str(data.get("cert_number") or ""),
     )
 
@@ -61,9 +81,12 @@ def _schema_from_reply(reply: str) -> GradedSlabSchema:
 def _empty_schema() -> GradedSlabSchema:
     return GradedSlabSchema(
         is_graded=False,
+        is_pokemon=None,
         company="",
         grade="",
         card_name="",
+        card_number="",
         year="",
+        collection_name="",
         cert_number="",
     )

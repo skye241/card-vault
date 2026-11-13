@@ -23,7 +23,12 @@ st.markdown(
         letter-spacing: -0.04em;
         line-height: 1.1;
         color: #0B6E4F;
-        margin: 0.15rem 0 0.25rem;
+        margin: 0.15rem 0 0;
+    }
+    .source {
+        margin: 0.2rem 0 0.6rem;
+        color: #6d675e;
+        font-size: 0.95rem;
     }
     div[data-testid="stMetricValue"] {font-variant-numeric: tabular-nums;}
     div[data-testid="stFileUploaderDropzone"] {min-height: 220px;}
@@ -35,7 +40,7 @@ st.markdown(
 
 st.markdown('<p class="eyebrow">Insurance check</p>', unsafe_allow_html=True)
 st.title("Graded card valuation")
-st.caption("Upload a straight-on photo of the slab. A raw card cannot be quoted.")
+st.caption("Upload a straight-on photo of a Pokémon slab. Other cards are unsupported for now.")
 
 photo_column, result_column = st.columns([1, 1.1], gap="large")
 
@@ -55,7 +60,9 @@ with result_column:
     else:
         with st.spinner("Reading the slab"):
             slab_info = extract_slab_info(uploaded.getvalue())
-        if not slab_info.is_graded:
+        if slab_info.is_pokemon is False:
+            st.error("This card is unsupported for now")
+        elif not slab_info.is_graded:
             st.error("Ineligible for Insurance (Ungraded Card)")
         elif slab_info.is_graded and slab_info.card_name == "":
             st.error("Ineligible for Insurance (Unable to verify slab - card name is missing)")
@@ -65,13 +72,15 @@ with result_column:
             st.success("Congratulations, your graded card is verified. Check out your card valuation below.")
             st.subheader(slab_info.card_name or "Graded card")
             try:
-                price = get_market_value(slab_info)
+                price, source = get_market_value(slab_info)
             except Exception as error:
                 st.warning(str(error))
             else:
-                st.caption("Covered Value:")
-                st.html(f'<p class="price">${price:,.2f}</p>')
-                st.caption("Source: eBay median listing prices")
+                symbol = "€" if "(EUR)" in source else "$"
+                st.html(
+                    f'<p class="price">{symbol}{price:,.2f}</p>'
+                    f'<p class="source">Source: {source}</p>'
+                )
             company, grade = st.columns(2)
             company.metric("Company", slab_info.company or "—")
             grade.metric("Grade", slab_info.grade or "—")
@@ -79,3 +88,10 @@ with result_column:
 
             year.metric("Year", slab_info.year or "—")
             cert.metric("Cert", slab_info.cert_number or "—")
+
+            st.caption(slab_info.collection_name or "—")
+
+            st.caption(slab_info.card_number or "—")
+
+
+            

@@ -51,8 +51,12 @@ def evaluate_pipeline(name: str, predict, cases: list[dict] | None = None) -> di
         image_path = ROOT / case["image_path"]
         error = ""
         started = time.perf_counter()
+        meta = {}
         try:
-            prediction = as_fields(predict(image_path.read_bytes()))
+            raw = predict(image_path.read_bytes())
+            if isinstance(raw, tuple):
+                raw, meta = raw
+            prediction = as_fields(raw)
         except Exception as exc:
             prediction = {}
             error = str(exc)
@@ -71,6 +75,9 @@ def evaluate_pipeline(name: str, predict, cases: list[dict] | None = None) -> di
             "expected": expected,
             "predicted": {field: prediction.get(field, "") for field in expected},
             "error": error,
+            "prompt_tokens": meta.get("prompt_tokens"),
+            "answer_confidence": meta.get("answer_confidence"),
+            "field_confidence": meta.get("field_confidence", {}),
         })
         print(f"{case['id']} {elapsed:.1f}s {'ok' if results[-1]['correct'] else 'miss'}", flush=True)
         _write_report(name, cases, results)

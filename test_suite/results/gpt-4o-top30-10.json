@@ -1,0 +1,529 @@
+{
+  "model": "gpt-4o-top30-10",
+  "images": 10,
+  "record_accuracy": 0.2,
+  "field_accuracy": {
+    "is_graded": 0.9,
+    "company": 1.0,
+    "grade": 1.0,
+    "cert_number": 0.9,
+    "card_name": 1.0,
+    "year": 0.8,
+    "collection_name": 0.5,
+    "variant": 0.6
+  },
+  "category_accuracy": {
+    "Standard Slabs": {
+      "correct": 1,
+      "total": 5,
+      "accuracy": 0.2
+    },
+    "Negative Control": {
+      "correct": 1,
+      "total": 3,
+      "accuracy": 0.333
+    },
+    "Visual Edge Cases": {
+      "correct": 0,
+      "total": 2,
+      "accuracy": 0.0
+    }
+  },
+  "seconds": {
+    "total": 23.528,
+    "mean": 2.353,
+    "median": 2.295
+  },
+  "results": [
+    {
+      "id": "IMG_001",
+      "category": "Standard Slabs",
+      "seconds": 2.015,
+      "correct": false,
+      "fields": {
+        "is_graded": true,
+        "company": true,
+        "grade": true,
+        "cert_number": true,
+        "card_name": true,
+        "year": true,
+        "collection_name": false,
+        "variant": true
+      },
+      "expected": {
+        "is_graded": true,
+        "company": "PSA",
+        "grade": "10",
+        "cert_number": "28669739",
+        "card_name": "Charizard",
+        "year": "2003",
+        "collection_name": "Pokemon Skyridge",
+        "variant": "Holo"
+      },
+      "predicted": {
+        "is_graded": true,
+        "company": "PSA",
+        "grade": "10",
+        "cert_number": "28669739",
+        "card_name": "Charizard",
+        "year": "2003",
+        "collection_name": "Skyridge",
+        "variant": "Holo"
+      },
+      "error": "",
+      "prompt_tokens": 366,
+      "answer_confidence": 0.999,
+      "field_confidence": {
+        "is_graded": 1.0,
+        "company": 1.0,
+        "grade": 0.987,
+        "cert_number": 0.987,
+        "card_name": 0.996,
+        "year": 1.0,
+        "collection_name": 0.976,
+        "variant": 1.0
+      }
+    },
+    {
+      "id": "IMG_002",
+      "category": "Standard Slabs",
+      "seconds": 2.128,
+      "correct": false,
+      "fields": {
+        "is_graded": true,
+        "company": true,
+        "grade": true,
+        "cert_number": true,
+        "card_name": true,
+        "year": true,
+        "collection_name": false,
+        "variant": false
+      },
+      "expected": {
+        "is_graded": true,
+        "company": "PSA",
+        "grade": "6",
+        "cert_number": "78417568",
+        "card_name": "Mudkip",
+        "year": "2004",
+        "collection_name": "Team Rocket Returns",
+        "variant": "Gold Star - Holo"
+      },
+      "predicted": {
+        "is_graded": true,
+        "company": "PSA",
+        "grade": "6",
+        "cert_number": "78417568",
+        "card_name": "Mudkip",
+        "year": "2004",
+        "collection_name": "EX Team Rocket Returns",
+        "variant": "Holo"
+      },
+      "error": "",
+      "prompt_tokens": 536,
+      "answer_confidence": 0.997,
+      "field_confidence": {
+        "is_graded": 1.0,
+        "company": 1.0,
+        "grade": 0.99,
+        "cert_number": 1.0,
+        "card_name": 0.877,
+        "year": 1.0,
+        "collection_name": 0.997,
+        "variant": 0.938
+      }
+    },
+    {
+      "id": "IMG_003",
+      "category": "Standard Slabs",
+      "seconds": 2.692,
+      "correct": true,
+      "fields": {
+        "is_graded": true,
+        "company": true,
+        "grade": true,
+        "cert_number": true,
+        "card_name": true,
+        "year": true,
+        "collection_name": true,
+        "variant": true
+      },
+      "expected": {
+        "is_graded": true,
+        "company": "PSA",
+        "grade": "10",
+        "cert_number": "82785934",
+        "card_name": "Ja'Marr Chase",
+        "year": "2021",
+        "collection_name": "Chronicles",
+        "variant": ""
+      },
+      "predicted": {
+        "is_graded": true,
+        "company": "PSA",
+        "grade": "10",
+        "cert_number": "82785934",
+        "card_name": "JA'MARR CHASE",
+        "year": "2021",
+        "collection_name": "CHRONICLES",
+        "variant": ""
+      },
+      "error": "",
+      "prompt_tokens": 1216,
+      "answer_confidence": 0.993,
+      "field_confidence": {
+        "is_graded": 1.0,
+        "company": 1.0,
+        "grade": 0.994,
+        "cert_number": 1.0,
+        "card_name": 0.523,
+        "year": 1.0,
+        "collection_name": 0.996,
+        "variant": 1.0
+      }
+    },
+    {
+      "id": "IMG_004",
+      "category": "Standard Slabs",
+      "seconds": 2.18,
+      "correct": false,
+      "fields": {
+        "is_graded": true,
+        "company": true,
+        "grade": true,
+        "cert_number": false,
+        "card_name": true,
+        "year": true,
+        "collection_name": true,
+        "variant": false
+      },
+      "expected": {
+        "is_graded": true,
+        "company": "TAG",
+        "grade": "10",
+        "cert_number": "N2727015",
+        "card_name": "Charizard",
+        "year": "2000",
+        "collection_name": "Base Set 2",
+        "variant": "Holo"
+      },
+      "predicted": {
+        "is_graded": true,
+        "company": "TAG",
+        "grade": "10",
+        "cert_number": "N2272015",
+        "card_name": "Charizard",
+        "year": "2000",
+        "collection_name": "Base Set 2",
+        "variant": "Holographic"
+      },
+      "error": "",
+      "prompt_tokens": 876,
+      "answer_confidence": 0.989,
+      "field_confidence": {
+        "is_graded": 1.0,
+        "company": 1.0,
+        "grade": 0.999,
+        "cert_number": 0.416,
+        "card_name": 0.974,
+        "year": 1.0,
+        "collection_name": 0.997,
+        "variant": 0.988
+      }
+    },
+    {
+      "id": "IMG_005",
+      "category": "Negative Control",
+      "seconds": 2.581,
+      "correct": false,
+      "fields": {
+        "is_graded": true,
+        "company": true,
+        "grade": true,
+        "cert_number": true,
+        "card_name": true,
+        "year": false,
+        "collection_name": true,
+        "variant": true
+      },
+      "expected": {
+        "is_graded": false,
+        "company": "",
+        "grade": "",
+        "cert_number": "",
+        "card_name": "Mewtwo",
+        "year": "2006",
+        "collection_name": "",
+        "variant": "Gold Star"
+      },
+      "predicted": {
+        "is_graded": false,
+        "company": "",
+        "grade": "",
+        "cert_number": "",
+        "card_name": "Mewtwo",
+        "year": "",
+        "collection_name": "",
+        "variant": "Gold Star"
+      },
+      "error": "",
+      "prompt_tokens": 1216,
+      "answer_confidence": 0.994,
+      "field_confidence": {
+        "is_graded": 0.997,
+        "company": 1.0,
+        "grade": 1.0,
+        "cert_number": 1.0,
+        "card_name": 1.0,
+        "year": 1.0,
+        "collection_name": 1.0,
+        "variant": 0.864
+      }
+    },
+    {
+      "id": "IMG_006",
+      "category": "Visual Edge Cases",
+      "seconds": 2.874,
+      "correct": false,
+      "fields": {
+        "is_graded": false,
+        "company": true,
+        "grade": true,
+        "cert_number": true,
+        "card_name": true,
+        "year": true,
+        "collection_name": false,
+        "variant": false
+      },
+      "expected": {
+        "is_graded": false,
+        "company": "Beckett",
+        "grade": "10",
+        "cert_number": "",
+        "card_name": "Lugia",
+        "year": "2026",
+        "collection_name": "30th Celebration",
+        "variant": "Holo"
+      },
+      "predicted": {
+        "is_graded": true,
+        "company": "Beckett",
+        "grade": "10",
+        "cert_number": "",
+        "card_name": "Lugia",
+        "year": "2026",
+        "collection_name": "Pokemon 30th Celebration Classic Collection",
+        "variant": "Confetti Holo"
+      },
+      "error": "",
+      "prompt_tokens": 1556,
+      "answer_confidence": 0.978,
+      "field_confidence": {
+        "is_graded": 1.0,
+        "company": 0.994,
+        "grade": 0.986,
+        "cert_number": 1.0,
+        "card_name": 0.994,
+        "year": 1.0,
+        "collection_name": 0.51,
+        "variant": 0.069
+      }
+    },
+    {
+      "id": "IMG_007",
+      "category": "Negative Control",
+      "seconds": 2.494,
+      "correct": false,
+      "fields": {
+        "is_graded": true,
+        "company": true,
+        "grade": true,
+        "cert_number": true,
+        "card_name": true,
+        "year": false,
+        "collection_name": true,
+        "variant": true
+      },
+      "expected": {
+        "is_graded": false,
+        "company": "",
+        "grade": "",
+        "cert_number": "",
+        "card_name": "Mega Rayquaza ex",
+        "year": "2026",
+        "collection_name": "",
+        "variant": ""
+      },
+      "predicted": {
+        "is_graded": false,
+        "company": "",
+        "grade": "",
+        "cert_number": "",
+        "card_name": "Mega Rayquaza EX",
+        "year": "",
+        "collection_name": "",
+        "variant": ""
+      },
+      "error": "",
+      "prompt_tokens": 706,
+      "answer_confidence": 0.99,
+      "field_confidence": {
+        "is_graded": 1.0,
+        "company": 1.0,
+        "grade": 1.0,
+        "cert_number": 1.0,
+        "card_name": 0.951,
+        "year": 1.0,
+        "collection_name": 1.0,
+        "variant": 0.626
+      }
+    },
+    {
+      "id": "IMG_008",
+      "category": "Visual Edge Cases",
+      "seconds": 1.973,
+      "correct": false,
+      "fields": {
+        "is_graded": true,
+        "company": true,
+        "grade": true,
+        "cert_number": true,
+        "card_name": true,
+        "year": true,
+        "collection_name": false,
+        "variant": true
+      },
+      "expected": {
+        "is_graded": true,
+        "company": "Beckett",
+        "grade": "9.5",
+        "cert_number": "0020616643",
+        "card_name": "Mega Gengar ex",
+        "year": "2026",
+        "collection_name": "Ascended Heroes",
+        "variant": "SIR"
+      },
+      "predicted": {
+        "is_graded": true,
+        "company": "Beckett",
+        "grade": "9.5",
+        "cert_number": "0020616643",
+        "card_name": "Mega Gengar EX",
+        "year": "2026",
+        "collection_name": "Mega Evolution Ascended Heroes",
+        "variant": "SIR"
+      },
+      "error": "",
+      "prompt_tokens": 706,
+      "answer_confidence": 0.999,
+      "field_confidence": {
+        "is_graded": 1.0,
+        "company": 0.99,
+        "grade": 1.0,
+        "cert_number": 1.0,
+        "card_name": 0.997,
+        "year": 1.0,
+        "collection_name": 0.967,
+        "variant": 1.0
+      }
+    },
+    {
+      "id": "IMG_009",
+      "category": "Negative Control",
+      "seconds": 2.336,
+      "correct": true,
+      "fields": {
+        "is_graded": true,
+        "company": true,
+        "grade": true,
+        "cert_number": true,
+        "card_name": true,
+        "year": true,
+        "collection_name": true,
+        "variant": true
+      },
+      "expected": {
+        "is_graded": true,
+        "company": "Beckett",
+        "grade": "",
+        "cert_number": "0020616643",
+        "card_name": "",
+        "year": "",
+        "collection_name": "",
+        "variant": ""
+      },
+      "predicted": {
+        "is_graded": true,
+        "company": "Beckett",
+        "grade": "",
+        "cert_number": "0020616643",
+        "card_name": "",
+        "year": "",
+        "collection_name": "",
+        "variant": ""
+      },
+      "error": "",
+      "prompt_tokens": 706,
+      "answer_confidence": 0.998,
+      "field_confidence": {
+        "is_graded": 0.996,
+        "company": 0.93,
+        "grade": 1.0,
+        "cert_number": 1.0,
+        "card_name": 1.0,
+        "year": 1.0,
+        "collection_name": 1.0,
+        "variant": 1.0
+      }
+    },
+    {
+      "id": "IMG_010",
+      "category": "Standard Slabs",
+      "seconds": 2.255,
+      "correct": false,
+      "fields": {
+        "is_graded": true,
+        "company": true,
+        "grade": true,
+        "cert_number": true,
+        "card_name": true,
+        "year": true,
+        "collection_name": false,
+        "variant": false
+      },
+      "expected": {
+        "is_graded": true,
+        "company": "PSA",
+        "grade": "9",
+        "cert_number": "53674548",
+        "card_name": "Yveltal EX",
+        "year": "2017",
+        "collection_name": "XY Black Star Promo",
+        "variant": "Full Art"
+      },
+      "predicted": {
+        "is_graded": true,
+        "company": "PSA",
+        "grade": "9",
+        "cert_number": "53674548",
+        "card_name": "Yveltal EX",
+        "year": "2017",
+        "collection_name": "XY Black Star",
+        "variant": ""
+      },
+      "error": "",
+      "prompt_tokens": 536,
+      "answer_confidence": 0.985,
+      "field_confidence": {
+        "is_graded": 1.0,
+        "company": 1.0,
+        "grade": 1.0,
+        "cert_number": 1.0,
+        "card_name": 0.971,
+        "year": 1.0,
+        "collection_name": 0.811,
+        "variant": 0.137
+      }
+    }
+  ]
+}
