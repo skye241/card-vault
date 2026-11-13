@@ -25,5 +25,4 @@ def predict(image_bytes: bytes) -> str:
 
 if __name__ == "__main__":
     report = evaluate_pipeline("moondream", predict)
-    print(report)
     print(report["record_accuracy"], report["seconds"])

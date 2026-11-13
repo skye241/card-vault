@@ -89,9 +89,9 @@ with result_column:
             year.metric("Year", slab_info.year or "—")
             cert.metric("Cert", slab_info.cert_number or "—")
 
-            st.caption(slab_info.collection_name or "—")
+            # st.caption(slab_info.collection_name or "—")
 
-            st.caption(slab_info.card_number or "—")
+            # st.caption(slab_info.card_number or "—")
 
 
             
