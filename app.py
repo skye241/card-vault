@@ -1,8 +1,23 @@
+import pandas as pd
 import streamlit as st
 
 from functions.extractor import extract_slab_info
 from functions.valuation import get_market_value
+from repository.market_api import price_history
 from constant import grading_company
+def _show_price_chart(card_id: int) -> None:
+    try:
+        with st.spinner("Loading price history"):
+            rows, note = price_history(card_id)
+    except Exception as error:
+        st.caption(f"Price history unavailable: {error}")
+        return
+    columns = [name for name in ("Cardmarket", "TCGPlayer") if any(row.get(name) is not None for row in rows)]
+    if not columns:
+        st.caption("No price history for this card.")
+        return
+    st.line_chart(pd.DataFrame(rows), x="date", y=columns, x_label="Date", y_label="Price")
+    st.caption(note)
 
 st.set_page_config(page_title="Graded card valuation", layout="wide")
 st.markdown(
@@ -38,9 +53,10 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.markdown('<p class="eyebrow">Insurance check</p>', unsafe_allow_html=True)
-st.title("Graded card valuation")
-st.caption("Upload a straight-on photo of a Pokémon slab. Other cards are unsupported for now.")
+# st.markdown('<p class="eyebrow">POKEMON GRADED CARD VALUATION</p>', unsafe_allow_html=True)
+st.title("Pókemon Graded card valuation")
+st.caption("Upload a straight-on photo of a Pokémon slab.")
+st.caption("Supported card grading companies: PSA, SGC, CGC, ACE, Beckett/BGS, and TAG.")
 
 photo_column, result_column = st.columns([1, 1.1], gap="large")
 
@@ -72,7 +88,7 @@ with result_column:
             st.success("Congratulations, your graded card is verified. Check out your card valuation below.")
             st.subheader(slab_info.card_name or "Graded card")
             try:
-                price, source = get_market_value(slab_info)
+                price, source, card_id = get_market_value(slab_info)
             except Exception as error:
                 st.warning(str(error))
             else:
@@ -81,6 +97,8 @@ with result_column:
                     f'<p class="price">{symbol}{price:,.2f}</p>'
                     f'<p class="source">Source: {source}</p>'
                 )
+                if card_id is not None:
+                    _show_price_chart(card_id)
             company, grade = st.columns(2)
             company.metric("Company", slab_info.company or "—")
             grade.metric("Grade", slab_info.grade or "—")
@@ -92,6 +110,8 @@ with result_column:
             # st.caption(slab_info.collection_name or "—")
 
             # st.caption(slab_info.card_number or "—")
+
+
 
 
             

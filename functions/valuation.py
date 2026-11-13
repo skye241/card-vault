@@ -3,18 +3,20 @@
 import re
 
 from data.schema import GradedSlabSchema
-from repository.market_api import calling_pokemon_tcg, calling_ebay
+from repository.market_api import calling_ebay, calling_pokemon_tcg
 
 _SOURCES = ("ebay", "cardmarket", "tcg_player")
 _COMPANY_RANK = ("tag", "ace", "bgs", "sgc", "cgc", "psa")
 _GRADE_LIMIT = 2
 
 
-def get_market_value(slab_info: GradedSlabSchema) -> tuple[float, str]:
+def get_market_value(slab_info: GradedSlabSchema) -> tuple[float, str, int | None]:
+    card = None
     try:
         if slab_info.is_pokemon is False:
             raise LookupError("This card is unsupported for now")
-        prices = calling_pokemon_tcg(slab_info)
+        card = calling_pokemon_tcg(slab_info)
+        prices = card.get("prices") or {}
         grade = _grade_number(slab_info.grade)
         companies = _company_order(slab_info.company)
         for source in _SOURCES:
@@ -24,13 +26,17 @@ def get_market_value(slab_info: GradedSlabSchema) -> tuple[float, str]:
                 continue
             value, company, used_grade = chosen
             currency = block.get("currency") or "USD"
-            return value, f"{_source_name(source)} {company.upper()} {used_grade:g} ({currency})"
+            return value, f"{_source_name(source)} {company.upper()} {used_grade:g} ({currency})", card.get("id")
         average = (prices.get("cardmarket") or {}).get("7d_average")
         if average not in (None, ""):
             currency = (prices.get("cardmarket") or {}).get("currency") or "EUR"
-            return float(average), f"Cardmarket 7-day average ({currency})"
+            return float(average), f"Cardmarket 7-day average ({currency})", card.get("id")
+        raise LookupError("Pokémon TCG returned no usable price")
     except LookupError:
-        return calling_ebay(slab_info), "Median eBay asking price"
+        if slab_info.is_pokemon is False:
+            raise
+        card_id = card.get("id") if card else None
+        return calling_ebay(slab_info), "Median eBay asking price", card_id
 
     
 

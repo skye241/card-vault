@@ -1,5 +1,6 @@
 
 import os
+from datetime import date, timedelta
 from statistics import median
 
 import requests
@@ -15,6 +16,14 @@ _EBAY_TOKEN_URL = "https://api.ebay.com/identity/v1/oauth2/token"
 _EBAY_SEARCH_URL = "https://api.ebay.com/buy/browse/v1/item_summary/search"
 _EBAY_SCOPE = "https://api.ebay.com/oauth/api_scope"
 _POKEMON_CARDS_URL = "https://pokemon-tcg-api.p.rapidapi.com/cards"
+_POKEMON_HISTORY_URL = "https://pokemon-tcg-api.p.rapidapi.com/history-prices"
+_CARDMARKET_SERIES = (
+    ("cm_low", "Cardmarket"),
+    ("cm_low_de", "Cardmarket DE"),
+    ("cm_low_fr", "Cardmarket FR"),
+    ("cm_low_es", "Cardmarket ES"),
+    ("cm_low_it", "Cardmarket IT"),
+)
 _POKEMON_CATEGORY_ID = 3
 _TCGCSV_HEADERS = {"User-Agent": "card-vault/0.1"}
 
@@ -40,7 +49,29 @@ def calling_pokemon_tcg(slab_info: GradedSlabSchema) -> dict:
     cards = body.get("data") or []
     if not cards:
         raise LookupError(f"Pokémon TCG returned no card for tcgplayer_id {product_id}")
-    return cards[0].get("prices") or {}
+    return cards[0]
+
+
+def price_history(card_id: int) -> tuple[list[dict], str]:
+    """Daily Cardmarket and TCGPlayer prices for the past year."""
+    start = date.today() - timedelta(days=365)
+    days: dict[str, dict] = {}
+    page = 1
+    while page <= 20:
+        body = _pokemon_get(_POKEMON_HISTORY_URL, {
+            "id": card_id,
+            "date_from": start.isoformat(),
+            "date_to": date.today().isoformat(),
+            "page": page,
+            "sort": "asc",
+            "lang": "en"
+        })
+        days.update(body.get("data") or {})
+        paging = body.get("paging") or {}
+        if page >= int(paging.get("total") or page):
+            break
+        page += 1
+    return _history_rows(days)
 
 def _group_id(slab_info: GradedSlabSchema) -> int:
     return find_group(slab_info.collection_name, slab_info.year).groupId
@@ -81,6 +112,33 @@ def _pokemon_get(url: str, params: dict | None = None) -> dict:
         status = response.status_code if response is not None else "no response"
         raise ValueError(f"Pokémon TCG {status}")
     return response.json()
+
+
+def _history_rows(days: dict) -> tuple[list[dict], str]:
+    counted = {
+        key: sum(1 for prices in days.values() if isinstance(prices, dict) and prices.get(key) not in (None, ""))
+        for key, _label in _CARDMARKET_SERIES
+    }
+    if counted["cm_low"]:
+        chosen = "cm_low"
+    else:
+        languages = {key: count for key, count in counted.items() if key != "cm_low"}
+        chosen = max(languages, key=languages.get) if any(languages.values()) else None
+    label = dict(_CARDMARKET_SERIES).get(chosen, "Cardmarket")
+    rows = []
+    for day in sorted(days):
+        prices = days[day] if isinstance(days[day], dict) else {}
+        row = {"date": day}
+        market = prices.get(chosen) if chosen else None
+        tcg = prices.get("tcg_player_market")
+        if market not in (None, ""):
+            row["Cardmarket"] = float(market)
+        if tcg not in (None, ""):
+            row["TCGPlayer"] = float(tcg)
+        if len(row) > 1:
+            rows.append(row)
+    note = f"*Average estimated daily value of this card ungraded. {label} prices are euros. TCGPlayer prices are US dollars."
+    return rows, note
 
 
 def _optional_env(name: str) -> str:
